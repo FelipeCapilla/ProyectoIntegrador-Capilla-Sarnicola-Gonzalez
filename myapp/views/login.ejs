@@ -22,7 +22,11 @@
 
 <body>
 	<!-- Header -->
-	<%- include("partials/header.ejs") %>
+	<% if (logueado) { %>
+		<%- include("partials/headerLogueado.ejs") %>
+		<% } else { %>
+			<%- include("partials/header.ejs") %>
+	<% } %>
 	<!-- /Header -->
 
 	<!-- Novedades -->

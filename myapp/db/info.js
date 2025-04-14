@@ -2,18 +2,11 @@ const info = {
     usuario: {
         id: 1,
         email: "martin@gmail.com",
-
         nombre: "Martin",
         contraseña: "12345",
-
-        contrasenia: "12345",
-        usuario: "Martin",
-
         fecha_nacimiento: "20/10/04",
         documento: 45787453,
         foto_perfil: "",
-
-
     },
     productos: [
         {

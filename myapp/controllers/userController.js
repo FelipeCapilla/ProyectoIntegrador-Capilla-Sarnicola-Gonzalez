@@ -2,10 +2,10 @@ const db = require("../db/info");
 const { search } = require("../routes/users");
 let userController = {
     register : function (req, res) {
-        res.render('register')
+        res.render('register', {productos : db.productos, logueado:false, usuario: db.usuario })
     },
     login : function(req, res){
-        res.render('login')
+        res.render('login', {productos : db.productos, logueado:false, usuario: db.usuario })
     },
     profile: function(req, res) {
         res.render("profile", {productos : db.productos, logueado:true, usuario: db.usuario })
