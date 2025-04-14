@@ -1,8 +1,6 @@
- -- creo la base de datos
+
 CREATE SCHEMA registro;
- -- usamos la bd
  USE registro;
-  -- creo la tabla
   CREATE TABLE usuarios (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	email VARCHAR(500) NOT NULL,
@@ -18,7 +16,7 @@ CREATE SCHEMA registro;
   
   CREATE TABLE productos (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NOT NULL,  -- clave foranea
+    usuario_id INT UNSIGNED NOT NULL, 
     nombre_producto VARCHAR(500) NOT NULL,
     descripcion_producto VARCHAR(500) NOT NULL,
     createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -31,14 +29,14 @@ CREATE SCHEMA registro;
   
   CREATE TABLE comentarios (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	id_post INT NOT NULL,
-    id_usuario INT NOT NULL,
+	id_producto INT UNSIGNED NOT NULL,
+    id_usuario INT UNSIGNED NOT NULL,
     texto VARCHAR(500) NOT NULL,
     createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleteAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     
-    FOREIGN KEY (id_post) REFERENCES productos(id),
+    FOREIGN KEY (id_producto) REFERENCES productos(id),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
     
   )
