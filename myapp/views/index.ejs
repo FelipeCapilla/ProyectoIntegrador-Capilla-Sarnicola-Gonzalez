@@ -48,9 +48,9 @@
 								<img src="images/<%= productos[i].imagen %>" alt="cafetera moulinex">
 							</figure>
 							<article class="product-box_data">
-								<h2><%=  %></h2>
+								<h2><%= productos[i].nombre_producto %></h2>
 								<p><%= productos[i].descripcion%></p>
-								<p><%= productos[i].comentarios%></p>
+								<p><%= productos[i].comentarios[i].texto_comentario%></p>
 							</article>
 						</a>
 					</section>
