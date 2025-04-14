@@ -1,5 +1,5 @@
 const db = require("../db/info");
-const { search } = require("../routes/users");
+
 let userController = {
     register : function (req, res) {
         res.render('register', {productos : db.productos, logueado:false, usuario: db.usuario })
