@@ -2,13 +2,13 @@ const info = {
     usuario: {
         id: 1,
         email: "martin@gmail.com",
-<<<<<<< HEAD
+
         nombre: "Martin",
         contraseña: "12345",
-=======
+
         contrasenia: "12345",
         usuario: "Martin",
->>>>>>> 60dd4c2706a975343dfdcf5e0dcf0041e99d3c89
+
         fecha_nacimiento: "20/10/04",
         documento: 45787453,
         foto_perfil: "",
