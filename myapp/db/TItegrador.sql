@@ -96,10 +96,10 @@ USE registro;
   
   
   INSERT INTO comentarios
-  VALUES (DEFAULT, 1, 1, 'Increible Reloj, me encanta!', DEFAULT, DEFAULT, DEFAULT);
+  VALUES (1, 1, 1, 'Increible Reloj, me encanta!', DEFAULT, DEFAULT, DEFAULT);
   
   INSERT INTO comentarios
-  VALUES (DEFAULT, 1, 2, 'Increible Reloj, me encanta!', DEFAULT, DEFAULT, DEFAULT);
+  VALUES (2, 1, 2, 'Increible Reloj, me encanta!', DEFAULT, DEFAULT, DEFAULT);
   
   INSERT INTO comentarios
-  VALUES (DEFAULT, 3, 3, 'Increible Reloj, me encanta!', DEFAULT, DEFAULT, DEFAULT);
+  VALUES (3, 3, 3, 'Increible Reloj, me encanta!', DEFAULT, DEFAULT, DEFAULT);
