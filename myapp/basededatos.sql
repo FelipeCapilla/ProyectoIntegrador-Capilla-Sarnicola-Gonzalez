@@ -1,8 +1,8 @@
--- 1. Crear base de datos
+/* rearc base de datos */
 CREATE DATABASE IF NOT EXISTS proyecto_integrador;
 USE proyecto_integrador;
 
--- 2. Crear tablas
+/* crear tablas */
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
