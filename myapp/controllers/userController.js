@@ -1,4 +1,4 @@
-const db = require("../db/info");
+const db = require("../database/models")
 
 let userController = {
     register : function (req, res) {

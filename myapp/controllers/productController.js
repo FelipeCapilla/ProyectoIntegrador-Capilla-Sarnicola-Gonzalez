@@ -1,4 +1,4 @@
-const db = require("../db/info");
+const db = require("../database/models")
 let productController = {
     add : function(req, res){
         res.render('product-add', {productos : db.productos, logueado:true, usuario: db.usuario })

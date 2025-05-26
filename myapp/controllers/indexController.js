@@ -1,4 +1,5 @@
-const db = require("../db/info")
+const db = require("../database/models")
+
 
 let loginController = {
     index: function(req, res, next) {
