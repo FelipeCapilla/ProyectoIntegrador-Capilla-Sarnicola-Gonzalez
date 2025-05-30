@@ -1,5 +1,6 @@
 const { sequelize } = require(".")
 const config = require("../config/config")
+let bcryptjs = require("bcryptjs");
 
 module.exports = function(sequelize, dataTypes){
     let alias = "User"
