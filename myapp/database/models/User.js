@@ -1,7 +1,3 @@
-const { sequelize } = require(".")
-const config = require("../config/config")
-
-
 module.exports = function(sequelize, dataTypes){
     let alias = "User"
 
@@ -40,6 +36,13 @@ module.exports = function(sequelize, dataTypes){
     }
 
     let User = sequelize.define(alias, cols, config);
+    User.associate = function(models) {
+    User.hasMany(models.Product, {
+        as: "user_products",
+        foreignKey: "usuario_id"
+    });
+};
+
     return User;
 }
 
