@@ -36,18 +36,18 @@
 				<h2 class="products-title">Ingresar</h2>
 			</div>
 		
-				<form action="/users/profile">
+				<form action="/users/profile" method="POST">
 					<div>
-						<label>Usuario:</label>
-						<input id="Usuario" type="text" name="UsuarioDelUsuario" value="" placeholder="Usuario" required>
+						<label>Email:</label>
+						<input id="Email" type="email" name="email" value="" placeholder="Email">
 					</div>
 					<div>
 						<label>Contraseña:</label>
-						<input id="" type="password" name="password" value="" placeholder="Contraseña" required>
+						<input id="" type="password" name="password" value="" placeholder="Contraseña">
 					</div>
 					<div>
 						<label>Recordarme</label>
-						<input type="checkbox" name="Recordarme">
+						<input type="checkbox" name="recordarme">
 					</div>
 					<button type="submit">Ingresar</button>
 				</form>

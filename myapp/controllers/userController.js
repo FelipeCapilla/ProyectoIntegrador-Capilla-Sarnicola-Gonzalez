@@ -1,4 +1,5 @@
 const db = require("../database/models")
+const users = db.User
 let bcryptjs = require("bcryptjs");
 
 let userController = {
@@ -51,6 +52,34 @@ let userController = {
             productos : db.productos,
             logueado:false,
             usuario: db.usuario })
+    },
+    ingreso : function (req, res) {
+        const infoUser = {
+            email: req.body.email,
+            password:  req.body.password,
+            recordarme:  req.body.recordarme
+        }
+    users.findOne({where: {email: infoUser.email}})
+        .then(function(user){
+            if (!user){
+                return res.send("El usuario no esta registrado");
+            }
+            const comparoPassword = bcrypt.compareSync(infoUser.password, user.password);
+
+            if (!comparoPassword){
+                return res.send("Contraseña incorrecta");
+            }
+            
+            req.session.user = infoUser;
+
+            if (infoUser.recordarme != undefined) {
+                res.cookie("user", infoUser, { maxAge: 150000});
+            }
+    
+            res.redirect("users/profile")
+        })
+        
+
     },
     profile: function(req, res) {
         res.render("profile", {
