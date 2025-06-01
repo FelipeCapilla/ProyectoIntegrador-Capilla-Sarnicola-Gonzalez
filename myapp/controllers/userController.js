@@ -12,7 +12,7 @@ let userController = {
         let contrasenia = req.body.password;
         let nacimiento = req.body.fechaDeNacimiento;
         let documento = req.body.documento;
-        let foto = req.boy.fotoDePerfil
+        let foto = req.body.fotoDePerfil
 
         let usuario = {
             email: EmailDelUsuario,
