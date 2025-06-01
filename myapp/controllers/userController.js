@@ -3,7 +3,13 @@ let bcryptjs = require("bcryptjs");
 
 let userController = {
     register : function (req, res) {
-        res.render('register', {productos : db.productos, logueado:false, usuario: db.usuario })
+        if (req.session && req.session.user) {
+            return res.redirect('/profile');
+        }
+        res.render('register', {
+            productos : db.productos,
+            logueado:false,
+            usuario: db.usuario })
     },
     create: function (req, res) {
         
