@@ -13,16 +13,24 @@ let userController = {
     },
     create: function (req, res) {
         
-        let email = req.body.EmailDelUsuario;
-        let nombre = req.body.UsuarioDelUsuario;
+        let email = req.body.email;
+        let nombre = req.body.usuario;
         let contrasenia = req.body.password;
         let nacimiento = req.body.fechaDeNacimiento;
         let documento = req.body.documento;
         let foto = req.body.fotoDePerfil
 
+        if (!email) {
+            return res.send("El email no puede estar vacío.");
+        }
+
+        if (contrasenia.length < 3) {
+            return res.send("La contraseña debe tener al menos 3 caracteres.");
+        }
+
         let usuario = {
-            email: EmailDelUsuario,
-            nombre: UsuarioDelUsuario,
+            email: email,
+            nombre: usuario,
             contrasenia: bcryptjs.hashSync(password, 10),
             nacimiento: fechaDeNacimiento,
             documento: documento,
@@ -39,10 +47,16 @@ let userController = {
 
     },
     login : function(req, res){
-        res.render('login', {productos : db.productos, logueado:false, usuario: db.usuario })
+        res.render('login', {
+            productos : db.productos,
+            logueado:false,
+            usuario: db.usuario })
     },
     profile: function(req, res) {
-        res.render("profile", {productos : db.productos, logueado:true, usuario: db.usuario })
+        res.render("profile", {
+            productos : db.productos,
+            logueado:true,
+            usuario: db.usuario })
     },
 };
 
