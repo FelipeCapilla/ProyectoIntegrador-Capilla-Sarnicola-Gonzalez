@@ -86,7 +86,7 @@ let userController = {
             productos : db.productos,
             logueado:true,
             usuario: db.usuario })
-    },
+    }, 
 };
 
 
