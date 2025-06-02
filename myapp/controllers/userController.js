@@ -49,7 +49,24 @@ let userController = {
     },
     
     storeLogin: function (req, res) {
-    const { email, contrasenia } = req.body;
+        let infoUser = {
+            email: req.body.email,
+            contrasenia: req.body.contrasenia,
+            recordame: req.body.recordame
+        }
+
+        let emailInsertado = req.body.email
+        let claveInsertada = req.body.contrasenia
+
+        let filtrado = {
+            where: [{ email: emailInsertado }]
+        }
+        errors = {}
+        db.User.findOne(filtrado)
+            .then(function (result) {
+                
+        })
+
 
     },
 
@@ -68,14 +85,13 @@ let userController = {
         ],
         };
 
-        db.User.findByPk(id, filtrado).then((result) => {
-            return res.render("profile", { usuario: result });
-        });
     }, 
 
     logout: function (req, res) {
+        req.session.destroy();
+        res.clearCookie("user")
         return res.redirect("/");
-    },
+      },
 
     
 };
