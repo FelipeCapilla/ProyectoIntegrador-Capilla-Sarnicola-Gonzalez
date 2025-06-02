@@ -44,19 +44,19 @@ USE registro;
   
   
   INSERT INTO usuarios  
-  VALUES (1, 'martin@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
+  VALUES (1, 'martin', 'martin@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
   
   INSERT INTO usuarios 
-  VALUES (2, 'jesus@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
+  VALUES (2, 'jesus', 'jesus@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
   
   INSERT INTO usuarios 
-  VALUES (3, 'carlos@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
+  VALUES (3, 'carlos', 'carlos@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
   
   INSERT INTO usuarios 
-  VALUES (4, 'tomas@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
+  VALUES (4, 'tomas', 'tomas@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
   
   INSERT INTO usuarios 
-  VALUES (5, 'milton@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
+  VALUES (5, 'milton', 'milton@gmail.com', 'contra123', '2001-05-26', 43757556, 'img/martin.jpeg',DEFAULT, DEFAULT, DEFAULT);
   
   
   
