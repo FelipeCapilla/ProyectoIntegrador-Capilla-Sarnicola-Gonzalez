@@ -1,5 +1,4 @@
 const db = require("../database/models")
-const users = db.User
 let bcryptjs = require("bcryptjs");
 
 let userController = {
@@ -7,38 +6,35 @@ let userController = {
         res.render('register')            
     },
     create: function (req, res) {
-        
-        let email = req.body.email;
-        let nombre = req.body.usuario;
-        let contrasenia = req.body.password;
-        let fecha = req.body.fechaDeNacimiento;
-        let documento = req.body.documento;
-        let foto_de_perfil = req.body.fotoDePerfil
+        const errors = validationResult(req);
+        const id = req.params.id;
+        const filtro = { where: { id: id } };
 
-        if (!email) {
-            return res.send("El email no puede estar vacío.");
+        if (errors.isEmpty()) {
+        const nuevoUsuario = req.body;
+
+        const user = {
+            email: nuevoUsuario.email,
+            username: nuevoUsuario.username,
+            fecha: nuevoUsuario.fecha,
+            dni: nuevoUsuario.dni || null,
+            foto_perfil: nuevoUsuario.foto_de_perfil
+      };
+        if (nuevoUsuario.contrasenia !== "") {
+        user.contrasenia = bcrypt.hashSync(nuevoUsuario.contrasenia, 10);
         }
 
-        if (contrasenia.length < 3) {
-            return res.send("La contraseña debe tener al menos 3 caracteres.");
-        }
+        db.User.update(user, filtro).then(() => res.redirect(`/profile/${id}`));
 
-        let usuario = {
-            email: email,
-            nombre: nombre,
-            contrasenia: bcryptjs.hashSync(password, 10),
-            fecha: fecha,
-            documento: documento,
-            foto_de_perfil: foto_de_perfil
-        }
-
-        db.User.create(usuario)
-            .then(function(results) {
-                return res.redirect("/")
-            })
-            .catch(function(err) {
-                return res.send(err)
-            })
+        } else {
+        db.User.findByPk(id, filtro).then((result) => {
+        return res.render("profile-edit", {
+          result,
+          errors: errors.mapped(),
+          old: req.body
+        });
+        });
+    }
 
     },
     login : function(req, res){
@@ -82,13 +78,11 @@ let userController = {
         let filtrado = {
         include: [
         {
-          association: "producto",
-          include: [{ association: "comentario" }],
-          order: [["createdAt", "DESC"]],
+          association: "products_users",
+          include: [{ association: "products_comments" }],
         },
         {
-          association: "comentario",
-          order: [["createdAt", "DESC"]]
+          association: "products_comments",
         }
         ],
         };
@@ -99,9 +93,9 @@ let userController = {
     }, 
 
     logout: function (req, res) {
-    req.session.destroy();
-    res.clearCookie("userID");
-    return res.redirect("/");
+        req.session.destroy();
+        res.clearCookie("userID");
+        return res.redirect("/");
     }
 
 };
