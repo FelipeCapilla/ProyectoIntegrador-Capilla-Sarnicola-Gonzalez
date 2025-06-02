@@ -4,11 +4,10 @@ let loginController = {
     index: function(req, res, next) {
       let associate = {
         include: [
-          { association: "texto"},
-          { association: "usuario"}
+          { association: "products_comments"},
+          { association: "user_products"}
         ],
-        order: [["createAt", "DESC"]],
-        limit: 15
+
       }
     
       db.Product.findAll()
