@@ -13,10 +13,13 @@ let productController = {
             usuario: db.usuario })
     },
     product: function(req, res) {
-        res.render("product", {
-            productos : db.productos,
-            logueado:false,
-            usuario: db.usuario })
+        db.Product.findAll()
+            .then(function(product) {
+                res.render("product",{product:product} )
+            })
+            .catch(function(error){
+                return res.send(error);
+            })
     }
 }
 
