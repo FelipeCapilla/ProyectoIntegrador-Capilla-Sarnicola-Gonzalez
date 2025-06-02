@@ -35,7 +35,7 @@ let userController = {
             contrasenia: bcryptjs.hashSync(password, 10),
             fecha: fecha,
             documento: documento,
-            foto_de_perfil: fotoDePerfil
+            foto_de_perfil: foto_de_perfil
         }
 
         db.User.create(usuario)
