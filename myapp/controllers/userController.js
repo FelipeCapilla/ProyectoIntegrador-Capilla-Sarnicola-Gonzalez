@@ -16,29 +16,7 @@ let userController = {
     
     storeLogin: function (req, res) {
     const { email, contrasenia } = req.body;
-
-    db.User.findOne({ where: { email } })
-      .then((user) => {
-        if (user && bcrypt.compareSync(contrasenia, user.contrasenia)) {
-          req.session.user = user.dataValues;
-
-          if (req.body.recordarme) {
-            res.cookie("userID", user.id, { maxAge: 1000 * 60 * 60 });
-          }
-
-          return res.redirect(`/usuarios/${user.id}`);
-        } else {
-          return res.render("login", {
-            errors: { mensaje: { msg: "Email o contraseña incorrectos" } }
-          });
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        return res.render("login", {
-          errors: { mensaje: { msg: "Error al iniciar sesión" } }
-        });
-      });
+    
     },
 
     profile: function(req, res) {
@@ -62,8 +40,6 @@ let userController = {
     }, 
 
     logout: function (req, res) {
-        req.session.destroy();
-        res.clearCookie("userID");
         return res.redirect("/");
     }
 
