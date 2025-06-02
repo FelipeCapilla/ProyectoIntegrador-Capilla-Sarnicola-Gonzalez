@@ -11,3 +11,4 @@ router.get('/product:id', productController.detail)
 
 
 module.exports = router;
+
