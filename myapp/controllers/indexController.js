@@ -10,15 +10,25 @@ let loginController = {
 
       }
     
-      db.Product.findAll()
+      db.Product.findAll({
+        include: [{ association: "products_users" }]
+      })
       .then(function(productos){
         res.render('index', {productos: productos, logueado:false, usuario: req.session.user });
       })
       .catch(function(error) {
         console.log(error);
       })
-    }
+    },
+   
     
 }
 
 module.exports = loginController;
+
+
+
+
+  
+
+
