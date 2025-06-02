@@ -10,16 +10,16 @@ module.exports = function(sequelize, dataTypes){
         usuario_id: {
             type: dataTypes.INTEGER
         },
-        nombre: {
+        nombre_producto: {
             type: dataTypes.STRING(500)
         },
-        descripcion: {
+        descripcion_producto: {
             type: dataTypes.STRING(500)
         },
-        created_at: {
+        createAt: {
             type: dataTypes.DATE
         },
-        updated_at: {
+        updateAt: {
             type: dataTypes.DATE
         }
     }   
