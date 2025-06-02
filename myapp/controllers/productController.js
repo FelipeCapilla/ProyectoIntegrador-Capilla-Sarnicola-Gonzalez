@@ -8,6 +8,11 @@ let productController = {
             usuario: db.usuario })
     },
     searchResults: function(req, res){
+        res.render("search-results", {
+            productos : db.productos,
+            logueado:false,
+            usuario: db.usuario })
+
         let valorBuscado = req.query.search
         db.Product.findAll
         res.send(valorBuscado); 

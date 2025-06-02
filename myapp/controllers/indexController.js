@@ -19,7 +19,7 @@ let loginController = {
       .catch(function(error) {
         console.log(error);
       })
-    },
+    }
    
     
 }
