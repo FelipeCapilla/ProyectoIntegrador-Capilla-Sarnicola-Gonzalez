@@ -6,6 +6,30 @@ let userController = {
         res.render('register')            
     },
 
+    create: function(req, res){
+        
+        let usuario = {
+            email: email,
+            nombre: nombre,
+            contrasenia: bcryptjs.hashSync(contrasenia, 10),
+            fecha: fecha,
+            documento: documento,
+            foto_de_perfil:foto_de_perfil
+        }
+
+        if (!email) {
+            return res.send("El email no puede estar vacio");
+        }
+
+        if (contrasenia.length < 3) {
+            return res.send("La contraseña debe tener al menos 3 caracteres.");
+        }
+
+        db.User.create(usuario)
+        return res.redirect("/users/login")
+
+    },
+
     login : function(req, res){
         if (req.session.user) {
             return res.redirect("/");
@@ -43,10 +67,7 @@ let userController = {
         return res.redirect("/");
     },
 
-    create: function(req, res){
-
-    }
-
+    
 };
 
 
