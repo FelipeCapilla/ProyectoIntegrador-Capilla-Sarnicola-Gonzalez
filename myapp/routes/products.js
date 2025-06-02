@@ -39,8 +39,13 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
       }
     );
-  
+
+    Product.associate = function(models) {
+        Product.belongsTo(models.User, {
+          as: "products_users",
+          foreignKey: "usuario_id"
+        });
+      };
    
-  
     return Product;
   };
