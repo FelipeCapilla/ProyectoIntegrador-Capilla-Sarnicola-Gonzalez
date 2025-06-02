@@ -13,13 +13,17 @@ let productController = {
         res.send(valorBuscado); 
     },
     product: function(req, res) {
-        db.Product.findAll()
-            .then(function(product) {
-                res.render("product",{product:product} )
-            })
-            .catch(function(error){
-                return res.send(error);
-            })
+        let id = req.params.id
+        let filtrado = {
+            include: [
+            {association: "user_products" },
+            {
+            association: "products_comments",
+            include: [{ association: "user_products" }]
+            }
+        ],
+    }
+        db.Producto.findByPk
     },
     detail: function(req, res){
         db.Product.findByPk(req.params.id)

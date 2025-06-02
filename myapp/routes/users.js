@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const db = require("../database/models");
 let userController = require('../controllers/userController.js')
-const { body } = require("express-validator");
 
 
 
