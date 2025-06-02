@@ -17,7 +17,7 @@ let userController = {
         let email = req.body.email;
         let nombre = req.body.usuario;
         let contrasenia = req.body.password;
-        let nacimiento = req.body.fechaDeNacimiento;
+        let fecha = req.body.fechaDeNacimiento;
         let documento = req.body.documento;
         let foto_de_perfil = req.body.fotoDePerfil
 
@@ -31,11 +31,11 @@ let userController = {
 
         let usuario = {
             email: email,
-            nombre: usuario,
+            nombre: nombre,
             contrasenia: bcryptjs.hashSync(password, 10),
-            nacimiento: fechaDeNacimiento,
+            fecha: fecha,
             documento: documento,
-            foto: fotoDePerfil
+            foto_de_perfil: fotoDePerfil
         }
 
         db.User.create(usuario)
