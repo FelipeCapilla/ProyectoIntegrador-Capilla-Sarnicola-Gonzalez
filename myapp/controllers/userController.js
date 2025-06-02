@@ -5,38 +5,7 @@ let userController = {
     register : function (req, res) {
         res.render('register')            
     },
-    create: function (req, res) {
-        const errors = validationResult(req);
-        const id = req.params.id;
-        const filtro = { where: { id: id } };
 
-        if (errors.isEmpty()) {
-        const nuevoUsuario = req.body;
-
-        const user = {
-            email: nuevoUsuario.email,
-            username: nuevoUsuario.username,
-            fecha: nuevoUsuario.fecha,
-            dni: nuevoUsuario.dni || null,
-            foto_perfil: nuevoUsuario.foto_de_perfil
-      };
-        if (nuevoUsuario.contrasenia !== "") {
-        user.contrasenia = bcrypt.hashSync(nuevoUsuario.contrasenia, 10);
-        }
-
-        db.User.update(user, filtro).then(() => res.redirect(`/profile/${id}`));
-
-        } else {
-        db.User.findByPk(id, filtro).then((result) => {
-        return res.render("profile-edit", {
-          result,
-          errors: errors.mapped(),
-          old: req.body
-        });
-        });
-    }
-
-    },
     login : function(req, res){
         if (req.session.user) {
             return res.redirect("/");
@@ -48,7 +17,7 @@ let userController = {
     storeLogin: function (req, res) {
     const { email, contrasenia } = req.body;
 
-    db.Usuario.findOne({ where: { email } })
+    db.User.findOne({ where: { email } })
       .then((user) => {
         if (user && bcrypt.compareSync(contrasenia, user.contrasenia)) {
           req.session.user = user.dataValues;
@@ -87,7 +56,7 @@ let userController = {
         ],
         };
 
-        db.Usuario.findByPk(id, filtrado).then((result) => {
+        db.User.findByPk(id, filtrado).then((result) => {
             return res.render("profile", { usuario: result });
         });
     }, 
