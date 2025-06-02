@@ -63,9 +63,35 @@ let userController = {
         }
         errors = {}
         db.User.findOne(filtrado)
-            .then(function (result) {
-                
-        })
+            .then(function (usuario) {
+                if (result != null) {
+
+                let claveCorrecta = bcrypt.compareSync(claveInsertada, usuario.contrasenia)
+                if (claveCorrecta) {
+                    req.session.user = usuario.dataValues
+                    if (req.body.recordarme != undefined) {
+                        res.cookie('id', usuario.dataValues.id, { maxAge: 1000 * 60 * 60 })
+                    }
+                    let id = req.session.user.id
+                    return res.redirect(`/profile/${id}`)
+                } else {
+                    errors.mensaje = "la contraseña es incorrecta"
+                    res.locals.errors = errors
+                    return res.render('login', { errors: errors });
+                }            
+            }   else {
+                errors.mensaje = "El email no existe"
+                res.locals.errors = errors
+                return res.render('login', { errors: errors });
+            }
+
+            }).catch((err) => {
+                console.log(err);
+                errors.mensaje = "Hubo un error. Por favor intentar denuevo";
+                res.locals.errors = errors;
+                return res.render('login', { errors: errors });
+    
+          });
 
 
     },
