@@ -19,7 +19,7 @@ let userController = {
         let contrasenia = req.body.password;
         let nacimiento = req.body.fechaDeNacimiento;
         let documento = req.body.documento;
-        let foto = req.body.fotoDePerfil
+        let foto_de_perfil = req.body.fotoDePerfil
 
         if (!email) {
             return res.send("El email no puede estar vacío.");
