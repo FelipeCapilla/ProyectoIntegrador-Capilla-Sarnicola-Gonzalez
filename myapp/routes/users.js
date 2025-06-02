@@ -13,10 +13,13 @@ router.get('/', function(req, res, next) {
 
 router.get('/register', userController.register)
 router.post('/register', userController.create)
+
 router.get('/login',userController.login)
-router.post('/login',userController.ingreso)
-router.get('/profile', userController.profile)
-router.get('/logout', profileController.logout);
+router.post('/login',userController.storeLogin)
+
+router.get('/:id', userController.profile)
+
+router.get('/logout', userController.logout);
 
 
 router.get("/profile", userController.profile);

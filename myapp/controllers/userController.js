@@ -77,10 +77,25 @@ let userController = {
     },
 
     profile: function(req, res) {
-        res.render("profile", {
-            productos : db.productos,
-            logueado:true,
-            usuario: db.usuario })
+        let id = req.params.id;
+
+        let filtrado = {
+        include: [
+        {
+          association: "producto",
+          include: [{ association: "comentario" }],
+          order: [["createdAt", "DESC"]],
+        },
+        {
+          association: "comentario",
+          order: [["createdAt", "DESC"]]
+        }
+        ],
+        };
+
+        db.Usuario.findByPk(id, filtrado).then((result) => {
+            return res.render("profile", { usuario: result });
+        });
     }, 
 
     logout: function (req, res) {
