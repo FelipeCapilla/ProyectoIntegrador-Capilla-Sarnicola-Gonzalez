@@ -7,15 +7,13 @@ let userController = {
     },
 
     create: function(req, res){
-        
-        let usuario = {
-            email: email,
-            nombre: nombre,
-            contrasenia: bcryptjs.hashSync(contrasenia, 10),
-            fecha: fecha,
-            documento: documento,
-            foto_de_perfil:foto_de_perfil
-        }
+
+        let email = req.body.email;
+        let nombre = req.body.usuario;
+        let contrasenia = req.body.password;
+        let fecha = req.body.fechaDeNacimiento;
+        let documento = req.body.documento;
+        let foto_de_perfil = req.body.fotoDePerfil
 
         if (!email) {
             return res.send("El email no puede estar vacio");
@@ -25,8 +23,20 @@ let userController = {
             return res.send("La contraseña debe tener al menos 3 caracteres.");
         }
 
+        let usuario = {
+            email: email,
+            nombre: nombre,
+            contrasenia: bcryptjs.hashSync(contrasenia, 10),
+            fecha: fecha,
+            documento: documento,
+            foto_de_perfil:foto_de_perfil
+        }
+
         db.User.create(usuario)
         return res.redirect("/users/login")
+        .catch(function(err) {
+            return res.send(err)
+        })
 
     },
 
