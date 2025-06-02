@@ -1,4 +1,5 @@
 const db = require("../database/models")
+const Op = db.Sequelize.Op;
 let productController = {
     add : function(req, res){
         res.render('product-add', {
