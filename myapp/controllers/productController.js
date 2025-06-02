@@ -14,7 +14,38 @@ let productController = {
             usuario: db.usuario })
 
         let valorBuscado = req.query.search
-        db.Product.findAll()
+            let filtro = {
+                where: {
+                [Op.or]: [
+                    { nombreProducto: { [Op.like]: `%${queryString}%` } },
+                    { descripcion: { [Op.like]: `%${queryString}%` } },
+                ],
+                },
+                include: [
+                { association: "products_comments" },
+                { association: "user_products" }
+                ],
+            }
+        db.Product.findAll(filtro)
+        .then(function (result) {
+            if (result.length > 0 && queryString != "") {
+                let mensaje = 'Aqui estan los resultados de la busqueda '
+                return res.render('search-results', {
+                  productos: result,
+                  mensaje: mensaje,
+                  buscado: queryString
+                })
+            } else {
+                let mensaje = 'No hay resultados para su busqueda'
+                return res.render('search-results', {
+                  mensaje: mensaje,
+                  productos: result,
+                  buscado: queryString
+                })
+            }   
+        }).catch((err) => {
+
+        });
         res.send(valorBuscado); 
     },
     product: function(req, res) {
