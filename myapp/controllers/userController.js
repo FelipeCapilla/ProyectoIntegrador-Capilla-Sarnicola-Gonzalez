@@ -16,7 +16,7 @@ let userController = {
     
     storeLogin: function (req, res) {
     const { email, contrasenia } = req.body;
-    
+
     },
 
     profile: function(req, res) {
@@ -41,6 +41,10 @@ let userController = {
 
     logout: function (req, res) {
         return res.redirect("/");
+    },
+
+    create: function(req, res){
+
     }
 
 };
