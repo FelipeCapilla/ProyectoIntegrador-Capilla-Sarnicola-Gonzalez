@@ -4,13 +4,7 @@ let bcryptjs = require("bcryptjs");
 
 let userController = {
     register : function (req, res) {
-        if (req.session && req.session.user) {
-            return res.redirect('/profile');
-        }
-        res.render('register', {
-            productos : db.productos,
-            logueado:false,
-            usuario: db.usuario })
+        res.render('register')            
     },
     create: function (req, res) {
         
@@ -48,45 +42,53 @@ let userController = {
 
     },
     login : function(req, res){
-        res.render('login', {
-            productos : db.productos,
-            logueado:false,
-            usuario: db.usuario })
-    },
-    ingreso : function (req, res) {
-        const infoUser = {
-            email: req.body.email,
-            password:  req.body.password,
-            recordarme:  req.body.recordarme
+        if (req.session.user) {
+            return res.redirect("/");
+        } else {
+            return res.render("login");
         }
-    users.findOne({where: {email: infoUser.email}})
-        .then(function(user){
-            if (!user){
-                return res.send("El usuario no esta registrado");
-            }
-            const comparoPassword = bcrypt.compareSync(infoUser.password, user.password);
-
-            if (!comparoPassword){
-                return res.send("Contraseña incorrecta");
-            }
-            
-            req.session.user = infoUser;
-
-            if (infoUser.recordarme != undefined) {
-                res.cookie("user", infoUser, { maxAge: 150000});
-            }
-    
-            res.redirect("users/profile")
-        })
-        
-
     },
+    
+    storeLogin: function (req, res) {
+    const { email, contrasenia } = req.body;
+
+    db.Usuario.findOne({ where: { email } })
+      .then((user) => {
+        if (user && bcrypt.compareSync(contrasenia, user.contrasenia)) {
+          req.session.user = user.dataValues;
+
+          if (req.body.recordarme) {
+            res.cookie("userID", user.id, { maxAge: 1000 * 60 * 60 });
+          }
+
+          return res.redirect(`/usuarios/${user.id}`);
+        } else {
+          return res.render("login", {
+            errors: { mensaje: { msg: "Email o contraseña incorrectos" } }
+          });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        return res.render("login", {
+          errors: { mensaje: { msg: "Error al iniciar sesión" } }
+        });
+      });
+    },
+
     profile: function(req, res) {
         res.render("profile", {
             productos : db.productos,
             logueado:true,
             usuario: db.usuario })
     }, 
+
+    logout: function (req, res) {
+    req.session.destroy();
+    res.clearCookie("userID");
+    return res.redirect("/");
+    }
+
 };
 
 
