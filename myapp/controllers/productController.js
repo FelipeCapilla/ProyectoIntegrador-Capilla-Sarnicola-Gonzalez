@@ -20,6 +20,12 @@ let productController = {
             .catch(function(error){
                 return res.send(error);
             })
+    },
+    detail: function(req, res){
+        db.Product.findByPk(req.params.id)
+            .then(function(product) {
+                res.render("detalle-producto", {product:product})
+            })
     }
 }
 

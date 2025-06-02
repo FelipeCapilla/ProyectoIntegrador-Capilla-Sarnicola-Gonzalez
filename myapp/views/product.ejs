@@ -32,7 +32,7 @@
 						<img src="images/<%= productos[i].imagen %>">
 					</figure>
 					<article class="product-box_data">
-						<h2><%= productos[i].nombre_producto %></h2>
+						<h2><a href="/product/<%= productos[i].id %>"><%= productos[i].nombre_producto %></a></h2>
 						<p><%= productos[i].descripcion%></p>
 						<p><%= productos[i].comentarios[i].texto_comentario%></p>
 					</article>
