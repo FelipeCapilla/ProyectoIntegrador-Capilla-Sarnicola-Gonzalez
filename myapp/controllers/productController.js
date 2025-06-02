@@ -7,10 +7,7 @@ let productController = {
             usuario: db.usuario })
     },
     searchResults: function(req, res){
-        res.render("search-results", {
-            productos : db.productos,
-            logueado:false,
-            usuario: db.usuario })
+        let valorBuscado = req.query.search_query
     },
     product: function(req, res) {
         db.Product.findAll()

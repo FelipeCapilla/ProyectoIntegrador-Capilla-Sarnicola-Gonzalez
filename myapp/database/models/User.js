@@ -7,6 +7,9 @@ module.exports = function(sequelize, dataTypes){
             primaryKey: true,
             type: dataTypes.INTEGER
         },
+        nombre: {
+            type: dataTypes.STRING(500)
+        },
         email: {
             type: dataTypes.STRING(500)
         },
@@ -19,7 +22,7 @@ module.exports = function(sequelize, dataTypes){
         dni: {
             type: dataTypes.INTEGER
         },
-        foto_perfil: {
+        foto_de_perfil: {
             type: dataTypes.STRING
         },
         created_at: {

@@ -4,6 +4,7 @@ USE registro;
 
   CREATE TABLE usuarios (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(500) NOT NULL,
 	email VARCHAR(500) NOT NULL,
     contrasenia VARCHAR(500) NOT NULL,
     fecha DATE NOT NULL,
