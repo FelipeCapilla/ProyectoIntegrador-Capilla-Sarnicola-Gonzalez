@@ -84,20 +84,24 @@ let userController = {
             });
     },
 
-    profile: function(req, res) {
-        let id = req.params.id;
-
-        db.User.findByPk(id, {
-            include: [{ association: "producto" }]
+    usuario: function (req, res) {
+        db.Usuario.findByPk(req.params.id, {
+            include: ["productos"]
         })
-        .then(function(usuario) {
-            return res.render("profile", { user: usuario });
-        })
-        .catch(function(err) {
-            console.log(err);
-            return res.send("Error al cargar el perfil");
-        });
-    },
+            .then(function (usuario) {
+                if (!usuario) {
+                    return res.send("usuario no encontrado");
+                }
+                return res.render("profile", {
+                    usuario: usuario,
+                    productos: usuario.productos,
+                    totalProductos: usuario.productos.length
+                });
+            })
+            .catch(function (err) {
+                return res.send(err);
+            });
+    }
 
     logout: function (req, res) {
         req.session.destroy();
