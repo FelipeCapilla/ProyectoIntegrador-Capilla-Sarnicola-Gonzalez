@@ -30,8 +30,7 @@ let userController = {
         };
 
         db.User.create(usuario)
-            .then(()
-            res.redirect("/users/login"))
+            .then(() => res.redirect("/users/login"))
             .catch(function(err) {
                 return res.send(err);
             });
@@ -105,6 +104,5 @@ let userController = {
         return res.redirect("/");
     }
 };
-
 
 module.exports = userController;
