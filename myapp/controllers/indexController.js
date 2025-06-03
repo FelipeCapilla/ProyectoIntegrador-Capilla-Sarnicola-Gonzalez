@@ -8,17 +8,12 @@ let indexController = {
         { association: "comentarios" }
       ]
     })
-    .then(function(productos){
-      res.render('index', {
-        productos: productos,
-        user: req.session.user || null
-      });
+   .then(function (resultados) {
+            return res.render("index", { data: resultados});
     })
-    .catch(function(error) {
-      console.log("❌ Error al buscar productos:", error.message);
-      console.log(error);
-      res.send("Error al cargar productos.");
-    });
+    .catch(function (error) {
+            return res.send(error);
+    })
   }
     
 }

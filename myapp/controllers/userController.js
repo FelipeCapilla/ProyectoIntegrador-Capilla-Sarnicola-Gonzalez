@@ -83,26 +83,53 @@ let userController = {
             });
     },
 
-    profile: function(req, res) {
-        let id = req.params.id;
-
-        db.User.findByPk(id, {
-            include: [{ association: "producto" }]
+    usuario: function (req, res) {
+        db.Usuario.findByPk(req.params.id, {
+            include: ["productos"]
         })
-        .then(function(usuario) {
-            return res.render("profile", { user: usuario });
-        })
-        .catch(function(err) {
-            console.log(err);
-            return res.send("Error al cargar el perfil");
-        });
+            .then(function (usuario) {
+                if (!usuario) {
+                    return res.send("usuario no encontrado");
+                }
+                return res.render("profile", {
+                    usuario: usuario,
+                    productos: usuario.productos,
+                    totalProductos: usuario.productos.length
+                });
+            })
+            .catch(function (err) {
+                return res.send(err);
+            });
     },
 
     logout: function (req, res) {
         req.session.destroy();
         res.clearCookie("id");
         return res.redirect("/");
-    }
+    },
+
+    profile: function (req, res) {
+
+    let id_usuario = req.params.id;
+
+    db.User.findByPk(id_usuario, {
+      include: [{
+        association: 'usuario',
+        include: [{ association: 'comments_users' }]
+      }, {association: 'products_comments'}
+     ]
+    })
+      .then(function (usuario) {
+        res.render("profile", {
+          usuario: usuario,
+          productos: usuario.productos,
+          total: usuario.productos.length
+        });
+      })
+      .catch(function (err) {
+        res.send("se obtiene un error al cargar el usuario");
+      });
+  }
 };
 
 module.exports = userController;
