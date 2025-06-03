@@ -79,7 +79,7 @@ let productController = {
           });
         })
         .catch(function(error) {
-          console.log("❌ Error al buscar producto:", error.message);
+          console.log("Error al buscar producto:", error.message);
           res.send("Error al cargar el detalle del producto.");
         });
       }

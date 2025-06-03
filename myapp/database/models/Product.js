@@ -16,17 +16,17 @@ module.exports = function(sequelize, dataTypes){
         descripcion_producto: {
             type: dataTypes.STRING(500)
         },
-        createAt: {
+        createdAt: {
             type: dataTypes.DATE
         },
-        updateAt: {
+        updatedAt: {
             type: dataTypes.DATE
         }
     }   
     
     let config = {
         tableName: "productos",
-        timestamps: false
+        timestamps: true
     }
 
     let Product = sequelize.define(alias, cols, config);
