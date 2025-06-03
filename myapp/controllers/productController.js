@@ -43,10 +43,10 @@ let productController = {
         let id = req.params.id
         let filtrado = {
             include: [
-            {association: "user_products" },
+            {association: "usuario" },
             {
-            association: "products_comments",
-            include: [{ association: "user_products" }]
+            association: "comentario",
+            include: [{ association: "usuario" }]
             }
         ],
     }
@@ -55,8 +55,9 @@ let productController = {
     detail: function (req, res) {
         db.Product.findByPk(req.params.id, {
           include: [
-            { association: "user_products" },
-            { association: "products_comments", include: ["comments_users"] }
+            { association: "usuario" },
+            { association: "comentario",
+             include: ["comments_users"] }
           ]
         })
         .then(function(producto) {
