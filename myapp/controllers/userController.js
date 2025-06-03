@@ -3,7 +3,7 @@ let bcryptjs = require("bcryptjs");
 
 let userController = {
     register : function (req, res) {
-        res.render('register')            
+        res.render('register', { user: null })            
     },
 
     create: function(req, res){
@@ -44,7 +44,7 @@ let userController = {
         if (req.session.user) {
             return res.redirect("/");
         } else {
-            return res.render("login");
+            return res.render("login", { user: null });
         }
     },
     

@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
 
   if (req.cookies.user != undefined && req.session.user == undefined) {
-    res.locals.user = req.cookies.user;
+    res.locals.user = req.cookies.user 
     req.session.user = req.cookies.user;
   }
 

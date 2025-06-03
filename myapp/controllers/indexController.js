@@ -1,30 +1,29 @@
-const db = require("../database/models")
+const db = require("../database/models");
 
-let loginController = {
-    index: function(req, res, next) {
-      let associate = {
-        include: [
-          { association: "products_comments"},
-          { association: "user_products"}
-        ],
-
-      }
-    
-      db.Product.findAll({
-        include: [{ association: "products_users" }]
-      })
-      .then(function(productos){
-        res.render('index', {productos: productos, logueado:false, usuario: req.session.user });
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
-    }
-   
+let indexController = {
+  index: function (req, res) {
+    db.Product.findAll({
+      include: [
+        { association: "products_users" },
+        { association: "products_comments" }
+      ]
+    })
+    .then(function (productos) {
+      res.render("index", {
+        productos: productos,
+        user: req.session.user || null
+      });
+    })
+    .catch(function (error) {
+      console.log("❌ Error al buscar productos:", error.message);
+      console.log(error); // muestra el error completo
+      res.send("Error al cargar productos.");
+    });
+  }
     
 }
 
-module.exports = loginController;
+module.exports = indexController;
 
 
 

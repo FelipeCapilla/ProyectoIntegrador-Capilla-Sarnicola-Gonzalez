@@ -61,12 +61,28 @@ let productController = {
     }
         db.Producto.findByPk
     },
-    detail: function(req, res){
-        db.Product.findByPk(req.params.id)
-            .then(function(product) {
-                res.render("detalle-producto", {product:product})
-            })
-    }
+    detail: function (req, res) {
+        db.Product.findByPk(req.params.id, {
+          include: [
+            { association: "products_users" },
+            { association: "products_comments", include: ["comments_users"] }
+          ]
+        })
+        .then(function(producto) {
+          if (!producto) {
+            return res.send("Producto no encontrado");
+          }
+    
+          res.render('detalle-producto', {
+            producto: producto,
+            user: req.session.user || null
+          });
+        })
+        .catch(function(error) {
+          console.log("❌ Error al buscar producto:", error.message);
+          res.send("Error al cargar el detalle del producto.");
+        });
+      }
 }
 
 module.exports = productController;

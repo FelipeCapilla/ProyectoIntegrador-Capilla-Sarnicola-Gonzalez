@@ -15,6 +15,11 @@
 	<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
+
+	<% if (user) { %>
+		<p class="saludo">¡Hola, <%= user.nombre %>!</p>
+	  <% } %>
+	  
 	<!-- Header -->
 	<header class="main-header">
 		<div class="container">
@@ -52,11 +57,11 @@
 	
 				<ul class="right-navbar">
 					<li><a href="/profile">
-							<%= usuario.nombre %> <i class="fas fa-user"></i>
+							<%= user.nombre %> <i class="fas fa-user"></i>
 						</a>
 					</li>
 					<li>
-						<form action="" method="post">
+						<form action="/users/logout" method="post">
 							<button class="logout" type="submit" name="logout">
 								Cerrar sesión <i class="fas fa-sign-in-alt"></i>
 							</button>

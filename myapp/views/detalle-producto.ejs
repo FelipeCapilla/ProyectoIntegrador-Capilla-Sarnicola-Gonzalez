@@ -7,12 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <% if (logueado) { %>
-		<%- include("partials/headerLogueado.ejs") %>
-		<% } else { %>
-			<%- include("partials/header.ejs") %>
-	<% } %>
+    <% if (user) { %>
+        <%- include("partials/headerLogueado.ejs") %>
+      <% } else { %>
+        <%- include("partials/header.ejs") %>
+      <% } %>
     
-    <h1><%= productos.nombre%></h1>
+      <h1><%= producto.nombre_producto %></h1>
+      <p><%= producto.descripcion_producto %></p>
+    
+      <h2>Comentarios</h2>
+      <% if (producto.comments && producto.comments.length > 0) { %>
+        <ul>
+          <% producto.comments.forEach(function(comentario) { %>
+            <li><strong><%= comentario.comments_users.nombre %></strong>: <%= comentario.texto %></li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>Este producto no tiene comentarios aún.</p>
+      <% } %>
 </body>
 </html>
