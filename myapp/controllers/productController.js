@@ -7,6 +7,13 @@ let productController = {
             logueado:true,
             usuario: db.usuario })
     },
+    agregar: function(req, res){
+      if (req.session.usuario !== undefined) {
+        return res.render("product-add");
+      } else {
+        return res.render('/', { error: {} });
+      }
+    },
     searchResults: function(req, res){
         res.render("search-results", {
             productos : db.productos,
@@ -14,39 +21,23 @@ let productController = {
             usuario: db.usuario })
 
         let valorBuscado = req.query.search
-            let filtro = {
-                where: {
-                [Op.or]: [
-                    { nombreProducto: { [Op.like]: `%${queryString}%` } },
-                    { descripcion: { [Op.like]: `%${queryString}%` } },
-                ],
-                },
-                include: [
-                { association: "products_comments" },
-                { association: "user_products" }
-                ],
-            }
-        db.Product.findAll(filtro)
-        .then(function (result) {
-            if (result.length > 0 && queryString != "") {
-                let mensaje = 'Aqui estan los resultados de la busqueda '
-                return res.render('search-results', {
-                  productos: result,
-                  mensaje: mensaje,
-                  buscado: queryString
-                })
-            } else {
-                let mensaje = 'No hay resultados para su busqueda'
-                return res.render('search-results', {
-                  mensaje: mensaje,
-                  productos: result,
-                  buscado: queryString
-                })
-            }   
-        }).catch((err) => {
 
-        });
-        res.send(valorBuscado); 
+        
+        db.Producto.findAll({
+            where: [
+                { nombre: { [op.like]: "%" + valorBuscado + "%" } }
+            ],
+            include: [{ association: "usuario" },
+              {association: "comentario"}]
+        })
+       
+        .then(function (resultados) {
+            return res.render('search-results', { data: resultados , busqueda: valorBuscado})
+        })
+        .catch(function (err) {
+            return res.send(err);
+        })
+        
     },
     product: function(req, res) {
         let id = req.params.id
@@ -82,6 +73,21 @@ let productController = {
           console.log("Error al buscar producto:", error.message);
           res.send("Error al cargar el detalle del producto.");
         });
+      },
+      comentarios: function(req, res){
+        if (req.session.usuario != undefined) {
+        db.Comentario.create({
+        id_usuario: req.params.id,
+        id_producto: req.session.usuario.id,
+        texto: req.body.comentario
+        })
+        .then(function () {
+          return res.redirect('/product/detalle-producto' + req.params.id)
+        })
+
+        } else {
+          return res.redirect('/users/login')
+        }
       }
 }
 
