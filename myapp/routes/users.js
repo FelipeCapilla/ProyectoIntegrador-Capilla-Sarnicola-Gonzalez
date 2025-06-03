@@ -14,6 +14,9 @@ router.post('/logout', userController.logout);
 
 router.get("/profile/:id", userController.profile);
 
+router.get('/change-password', usersController.changePasswordForm);
+router.post('/change-password', usersController.changePasswordProcess);
+
 module.exports = router;
 
 

@@ -133,3 +133,30 @@ let userController = {
 };
 
 module.exports = userController;
+
+
+const bcrypt = require('bcryptjs');
+const { User } = require('../database/models');
+
+exports.changePasswordForm = (req, res) => {
+  if (!req.session.user) return res.redirect('/users/login');
+  res.render('users/change-password');
+};
+
+exports.changePasswordProcess = async (req, res) => {
+  if (!req.session.user) return res.redirect('/users/login');
+  const { oldPassword, newPassword } = req.body;
+  if (!oldPassword || !newPassword || newPassword.length < 3) {
+    return res.render('users/change-password', { error: 'La contraseña nueva debe tener al menos 3 caracteres' });
+  }
+
+  const user = await User.findByPk(req.session.user.id);
+  if (!user || !bcrypt.compareSync(oldPassword, user.password)) {
+    return res.render('users/change-password', { error: 'Contraseña actual incorrecta' });
+  }
+
+  user.password = bcrypt.hashSync(newPassword, 10);
+  await user.save();
+
+  res.render('users/change-password', { success: 'Cambio de contraseña exitoso' });
+};
