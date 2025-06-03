@@ -10,8 +10,8 @@ module.exports = function(sequelize, dataTypes){
         id_producto: {
             type: dataTypes.INTEGER
         },
-        usuario_id: {
-            type: dataTypes.INTEGER
+        id_usuario: {
+            type: dataTypes.INTEGER,    
         },
         texto: {
             type: dataTypes.STRING(500)
@@ -33,7 +33,7 @@ module.exports = function(sequelize, dataTypes){
     Comment.associate = function(models) {
         Comment.belongsTo(models.User, {
           as: "comments_users",
-          foreignKey: "usuario_id"
+          foreignKey: "id_usuario"
         });
       
         Comment.belongsTo(models.Product, {

@@ -25,12 +25,7 @@ module.exports = function(sequelize, dataTypes){
         foto_de_perfil: {
             type: dataTypes.STRING
         },
-        created_at: {
-            type: dataTypes.DATE
-        },
-        updated_at: {
-            type: dataTypes.DATE
-        }
+        
     }   
     
     let config = {
@@ -39,10 +34,11 @@ module.exports = function(sequelize, dataTypes){
     }
 
     let User = sequelize.define(alias, cols, config);
+    
     User.associate = function(models) {
     User.hasMany(models.Product, {
         as: "user_products",
-        foreignKey: "usuario_id"
+        foreignKey: "id_usuario"
     });
 };
 

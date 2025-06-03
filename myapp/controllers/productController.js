@@ -64,7 +64,7 @@ let productController = {
     detail: function (req, res) {
         db.Product.findByPk(req.params.id, {
           include: [
-            { association: "products_users" },
+            { association: "user_products" },
             { association: "products_comments", include: ["comments_users"] }
           ]
         })
